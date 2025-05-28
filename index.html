@@ -10,7 +10,13 @@
       padding: 1rem;
       font-family: sans-serif;
       background-color: #f9f9f9;
+      color: #333;
       scroll-behavior: smooth;
+    }
+
+    body.dark {
+      background-color: #121212;
+      color: #e0e0e0;
     }
 
     .container {
@@ -26,16 +32,28 @@
       margin-bottom: 1rem;
     }
 
+    body.dark .exercise {
+      background: #1e1e1e;
+      color: #e0e0e0;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+    }
+
     .header {
       margin-bottom: 1.5rem;
     }
 
-    select {
+    select, .toggle-wrapper {
       font-size: 1rem;
       margin-bottom: 1rem;
       padding: 0.4rem;
       border-radius: 6px;
       border: 1px solid #ccc;
+    }
+
+    .toggle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
   </style>
 </head>
@@ -47,13 +65,23 @@
         <option value="workout1.json">Workout 1</option>
         <option value="workout2.json" selected>Workout 2</option>
       </select>
+
+      <div class="toggle-wrapper">
+        <input type="checkbox" id="dark-toggle" />
+        <label for="dark-toggle">Dark Mode</label>
+      </div>
     </div>
     <div id="workout"><p>Loading workout...</p></div>
   </div>
 
   <script>
     const select = document.getElementById('workout-select');
+    const toggle = document.getElementById('dark-toggle');
+
     select.addEventListener('change', () => loadWorkout(select.value));
+    toggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark', toggle.checked);
+    });
 
     async function loadWorkout(file = 'workout2.json') {
       try {
@@ -94,18 +122,13 @@
           container.appendChild(exDiv);
         });
 
-        window.scrollTo(0, 0);setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 50);
- // scroll fix
+        setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 50);
       } catch (error) {
         document.getElementById('workout').innerHTML = `<p style="color: red;">Error loading workout: ${error.message}</p>`;
       }
     }
 
-    window.onload = () => {
-  loadWorkout();
-  setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 50);
-};
-
+    window.onload = () => loadWorkout();
   </script>
 </body>
 </html>
