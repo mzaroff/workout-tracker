@@ -94,13 +94,18 @@
           container.appendChild(exDiv);
         });
 
-        window.scrollTo(0, 0); // scroll fix
+        window.scrollTo(0, 0);setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 50);
+ // scroll fix
       } catch (error) {
         document.getElementById('workout').innerHTML = `<p style="color: red;">Error loading workout: ${error.message}</p>`;
       }
     }
 
-    window.onload = () => loadWorkout();
+    window.onload = () => {
+  loadWorkout();
+  setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 50);
+};
+
   </script>
 </body>
 </html>
