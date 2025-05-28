@@ -1,0 +1,96 @@
+{
+  "workout_id": 2,
+  "last_updated": "2025-05-27",
+  "exercises": [
+    {
+      "name": "Planks",
+      "sets": 3,
+      "reps": "20 sec",
+      "max_reps": "60 sec",
+      "weight": "Bodyweight"
+    },
+    {
+      "name": "Seated Row",
+      "sets": [
+        { "set": 1, "reps": 15, "weight": "75 lbs" },
+        { "set": 2, "reps": "10-12", "max_reps": 15, "weight": "87.5 lbs" }
+      ],
+      "rest": "30 sec",
+      "notes": "Toes on the tape and heels on the ground, knees slightly bent, lean back 20 degrees and squeeze between your shoulder blades when you pull back."
+    },
+    {
+      "name": "Leg Press",
+      "machine_id": 28,
+      "adjustment": "adj#4",
+      "sets": [
+        { "set": 1, "reps": 15, "weight": "90 lbs" },
+        { "set": 2, "reps": 10, "max_reps": 15, "weight": "120 lbs" }
+      ],
+      "rest": "1 min",
+      "notes": "Bring legs down to 90 degrees. When you push up come close but DON’T lock out knees… push through your heels."
+    },
+    {
+      "name": "Seated Shoulder Press",
+      "machine_id": 10,
+      "adjustment": "adj#7",
+      "sets": [
+        { "set": 1, "reps": 15, "weight": "50 lbs" },
+        { "set": 2, "reps": "12-15", "weight": "60 lbs" }
+      ],
+      "rest": "30 sec",
+      "notes": "Look back, push back."
+    },
+    {
+      "name": "Leg Extension",
+      "machine_id": 4,
+      "adjustment": "adj#3/6",
+      "sets": 3,
+      "reps": "12 reps",
+      "max_reps": "15 reps",
+      "weight": "50 lbs",
+      "rest": "45 sec"
+    },
+    {
+      "name": "Close Grip Lat Pull",
+      "machine_id": 24,
+      "adjustment": "adj#2",
+      "sets": [
+        { "set": 1, "reps": 15, "weight": "80 lbs" },
+        { "set": 2, "reps": 15, "weight": "90 lbs" }
+      ],
+      "rest": "30 sec",
+      "notes": "Sit straight up and pull the bar to your collarbone, keep abs tight as you pull down."
+    },
+    {
+      "name": "Bicycle Abs",
+      "sets": 3,
+      "reps": "20 sec",
+      "max_reps": "60 sec",
+      "weight": "Bodyweight"
+    },
+    {
+      "name": "Leg Curls",
+      "machine_id": 5,
+      "adjustment": "adj#5",
+      "sets": 3,
+      "reps": "10 reps",
+      "max_reps": "12 reps",
+      "weight": "30 lbs",
+      "rest": "45 sec"
+    },
+    {
+      "name": "Standing Dumbbell Bicep I’s to T’s Curls",
+      "sets": 3,
+      "reps": "15 reps",
+      "weight": "15 lbs",
+      "notes": "Standing with feet shoulder-width apart and knees slightly bent. Turn palms up when you curl the weights up."
+    },
+    {
+      "name": "Calf Raises",
+      "sets": 3,
+      "reps": "12 reps",
+      "max_reps": "15 reps",
+      "weight": "Bodyweight"
+    }
+  ]
+}
