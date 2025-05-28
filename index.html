@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workout Viewer</title>
   <style>
     body {
       margin: 0;
-      padding: 1rem;
       font-family: sans-serif;
       background-color: #f9f9f9;
-      scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
-
     .container {
+      width: 100%;
       max-width: 600px;
-      margin: auto;
+      padding: 1rem;
     }
-
     .exercise {
       background: white;
       border-radius: 12px;
@@ -25,77 +27,47 @@
       padding: 1rem;
       margin-bottom: 1rem;
     }
-
-    .header {
-      margin-bottom: 2rem;
-    }
-
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 0.2rem;
-    }
-
-    h2 {
-      margin-top: 0.5rem;
-    }
-
-    ul {
-      padding-left: 1.2rem;
+    .exercise h2 {
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="workout">
-    <p>Loading workout...</p>
-  </div>
-
+  <div class="container" id="workout"></div>
   <script>
     async function loadWorkout() {
-      try {
-        const response = await fetch('workout2.json');
-        if (!response.ok) throw new Error("Workout file not found.");
+      const response = await fetch('workout2.json');
+      const data = await response.json();
 
-        const data = await response.json();
-        const container = document.getElementById('workout');
+      const container = document.getElementById('workout');
+      container.innerHTML = `<h1>Workout ${data.workout_id}</h1><p>Last Updated: ${data.last_updated}</p>`;
 
-        container.innerHTML = `
-          <div class="header">
-            <h1>Workout ${data.workout_id}</h1>
-            <p>Last Updated: ${data.last_updated}</p>
-          </div>
-        `;
+      data.exercises.forEach(ex => {
+        const exDiv = document.createElement('div');
+        exDiv.className = 'exercise';
+        let content = `<h2>${ex.name}</h2>`;
 
-        data.exercises.forEach(ex => {
-          const exDiv = document.createElement('div');
-          exDiv.className = 'exercise';
-          let content = `<h2>${ex.name}</h2>`;
+        if (Array.isArray(ex.sets)) {
+          content += '<ul>';
+          ex.sets.forEach(set => {
+            content += `<li>${set.set ? 'Set ' + set.set + ': ' : ''}${set.reps} reps` +
+                       (set.max_reps ? ` (${set.max_reps})` : '') +
+                       ` x ${set.weight}</li>`;
+          });
+          content += '</ul>';
+        } else {
+          content += `<p>${ex.sets} sets x ${ex.reps} x ${ex.weight}</p>`;
+        }
 
-          if (Array.isArray(ex.sets)) {
-            content += '<ul>';
-            ex.sets.forEach(set => {
-              content += `<li>${set.set ? 'Set ' + set.set + ': ' : ''}${set.reps} reps` +
-                         (set.max_reps ? ` (${set.max_reps})` : '') +
-                         ` x ${set.weight}</li>`;
-            });
-            content += '</ul>';
-          } else {
-            content += `<p>${ex.sets} sets x ${ex.reps} x ${ex.weight}</p>`;
-          }
+        if (ex.rest) content += `<p><strong>Rest:</strong> ${ex.rest}</p>`;
+        if (ex.notes) content += `<p><strong>Notes:</strong> ${ex.notes}</p>`;
 
-          if (ex.rest) content += `<p><strong>Rest:</strong> ${ex.rest}</p>`;
-          if (ex.notes) content += `<p><strong>Notes:</strong> ${ex.notes}</p>`;
-
-          exDiv.innerHTML = content;
-          container.appendChild(exDiv);
-        });
-
-        window.scrollTo(0, 0); // Force scroll to top just in case
-      } catch (error) {
-        document.getElementById('workout').innerHTML = `<p style="color: red;">Error loading workout: ${error.message}</p>`;
-      }
+        exDiv.innerHTML = content;
+        container.appendChild(exDiv);
+      });
     }
 
-    window.onload = loadWorkout;
+    loadWorkout();
   </script>
 </body>
 </html>
