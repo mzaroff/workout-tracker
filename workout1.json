@@ -1,106 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Workout Viewer</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 1rem;
-      font-family: sans-serif;
-      background-color: #f9f9f9;
-      scroll-behavior: smooth;
+{
+  "workout_id": 1,
+  "last_updated": "2025-05-20",
+  "exercises": [
+    {
+      "name": "Cardio Warmup",
+      "notes": "General warmup, details not specified"
+    },
+    {
+      "name": "Planks",
+      "sets": 3,
+      "reps": "15 sec",
+      "max_reps": "60 sec",
+      "weight": "Bodyweight"
+    },
+    {
+      "name": "Chest Press",
+      "machine_id": 26,
+      "adjustment": "adj#1",
+      "sets": [
+        { "set": 1, "reps": 15, "weight": "60 lbs" },
+        { "set": 2, "reps": 10, "max_reps": 15, "weight": "70 lbs" },
+        { "set": 3, "reps": 15, "weight": "80 lbs" },
+        { "set": 4, "reps": 10, "max_reps": 15, "weight": "90 lbs" }
+      ],
+      "notes": "Use top handle, breathe out when you push out, keep abs tight and you push… Bellybutton to the Spine."
+    },
+    {
+      "name": "Wide Lat Pull",
+      "machine_id": 24,
+      "adjustment": "adj#2",
+      "sets": 3,
+      "reps": 15,
+      "weight": "80 lbs",
+      "notes": "Thumbs in the corner and over the top, lean back 20 degrees and pull down to your collarbone, squeeze between your shoulder blades."
+    },
+    {
+      "name": "Leg Press",
+      "machine_id": 28,
+      "adjustment": "adj#4",
+      "sets": [
+        { "set": 1, "reps": 15, "weight": "90 lbs" },
+        { "set": 2, "reps": 10, "max_reps": 15, "weight": "110 lbs" },
+        { "set": 3, "reps": 10, "max_reps": 15, "weight": "110 lbs" }
+      ],
+      "rest": "1 min",
+      "notes": "Bring legs down to 90 degrees, when you push up come close but DON’T lock out knees… push through your heels."
+    },
+    {
+      "name": "Incline Chest Press",
+      "machine_id": 9,
+      "adjustment": "adj#2/7",
+      "sets": [
+        { "set": 1, "reps": "10-12", "weight": "50 lbs" },
+        { "set": 2, "reps": 15, "weight": "50 lbs" },
+        { "set": 3, "reps": 15, "weight": "50 lbs" }
+      ]
+    },
+    {
+      "name": "Seated Bicep Hammer Curls",
+      "sets": 3,
+      "reps": "10–12 reps",
+      "weight": "15 lbs"
+    },
+    {
+      "name": "Bicycle Abs",
+      "sets": 3,
+      "reps": 15,
+      "max_reps": 60,
+      "weight": "Bodyweight",
+      "notes": "Tuck hands underneath chin, raise shoulder blades, keep abs tight and pedal legs."
+    },
+    {
+      "name": "Tricep Pushdowns/Pulldowns",
+      "machine_id": 13,
+      "sets": 3,
+      "reps": 10,
+      "max_reps": "12–15",
+      "weight": "60/50 lbs",
+      "rest": "1 min",
+      "notes": "Palms down, thumbs on top, feet shoulder width apart, knees slightly bent, pushdown and roll knuckles to your thighs."
     }
-
-    .container {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    .exercise {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .header {
-      margin-bottom: 1.5rem;
-    }
-
-    select {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      padding: 0.4rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <label for="workout-select"><strong>Select Workout:</strong></label>
-      <select id="workout-select">
-        <option value="workout1.json">Workout 1</option>
-        <option value="workout2.json" selected>Workout 2</option>
-      </select>
-    </div>
-    <div id="workout"><p>Loading workout...</p></div>
-  </div>
-
-  <script>
-    const select = document.getElementById('workout-select');
-    select.addEventListener('change', () => loadWorkout(select.value));
-
-    async function loadWorkout(file = 'workout2.json') {
-      try {
-        const response = await fetch(file);
-        if (!response.ok) throw new Error("Workout file not found.");
-
-        const data = await response.json();
-        const container = document.getElementById('workout');
-
-        container.innerHTML = `
-          <div class="header">
-            <h1>Workout ${data.workout_id}</h1>
-            <p>Last Updated: ${data.last_updated}</p>
-          </div>
-        `;
-
-        data.exercises.forEach(ex => {
-          const exDiv = document.createElement('div');
-          exDiv.className = 'exercise';
-          let content = `<h2>${ex.name}</h2>`;
-
-          if (Array.isArray(ex.sets)) {
-            content += '<ul>';
-            ex.sets.forEach(set => {
-              content += `<li>${set.set ? 'Set ' + set.set + ': ' : ''}${set.reps} reps` +
-                         (set.max_reps ? ` (${set.max_reps})` : '') +
-                         ` x ${set.weight}</li>`;
-            });
-            content += '</ul>';
-          } else if (ex.sets && ex.reps && ex.weight) {
-            content += `<p>${ex.sets} sets x ${ex.reps} x ${ex.weight}</p>`;
-          }
-
-          if (ex.rest) content += `<p><strong>Rest:</strong> ${ex.rest}</p>`;
-          if (ex.notes) content += `<p><strong>Notes:</strong> ${ex.notes}</p>`;
-
-          exDiv.innerHTML = content;
-          container.appendChild(exDiv);
-        });
-
-        window.scrollTo(0, 0);
-      } catch (error) {
-        document.getElementById('workout').innerHTML = `<p style="color: red;">Error loading workout: ${error.message}</p>`;
-      }
-    }
-
-    window.onload = () => loadWorkout();
-  </script>
-</body>
-</html>
+  ]
+}
