@@ -24,13 +24,25 @@
       ]
     },
     {
-      "raw": "Seated Row: 1 set  x 15 reps x 75 lbs,  2 sets x 10-12 (15) x 87.5 : 30 sec rest ( toes on the tape and heels on the ground, knees slightly bent, lean back 20 degrees and squeeze between your shoulder blades when you pull back)",
+      "raw": "Seated Row: 1 set  x 15 reps x 75 lbs,  2 sets x 10-12 (15) x 87.5 lbs : 30 sec rest ( toes on the tape and heels on the ground, knees slightly bent, lean back 20 degrees and squeeze between your shoulder blades when you pull back)",
       "name": "Seated Row",
       "sets": [
         {
           "set": 1,
           "reps": "15",
           "weight": "75 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "10-12",
+          "weight": "87.5 lbs",
+          "max_reps": 15
+        },
+        {
+          "set": 3,
+          "reps": "10-12",
+          "weight": "87.5 lbs",
+          "max_reps": 15
         }
       ],
       "rest": "30 sec",
@@ -124,6 +136,16 @@
           "set": 2,
           "reps": "15",
           "weight": "80 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "90 lbs"
+        },
+        {
+          "set": 4,
+          "reps": "15",
+          "weight": "90 lbs"
         }
       ],
       "rest": "30 sec",
