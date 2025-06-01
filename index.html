@@ -55,17 +55,6 @@
       align-items: center;
       gap: 0.5rem;
     }
-
-    .sub-info {
-      margin-top: 0.25rem;
-      margin-left: 1rem;
-      font-size: 0.95rem;
-      color: #666;
-    }
-
-    body.dark .sub-info {
-      color: #aaa;
-    }
   </style>
 </head>
 <body>
@@ -90,7 +79,6 @@
     const toggle = document.getElementById('dark-toggle');
 
     select.addEventListener('change', () => loadWorkout(select.value));
-
     toggle.addEventListener('change', () => {
       document.body.classList.toggle('dark', toggle.checked);
     });
@@ -105,7 +93,7 @@
 
         container.innerHTML = `
           <div class="header">
-            <h1>${data.workout_id}</h1>
+            <h1>Workout ${data.workout_id}</h1>
             <p>Last Updated: ${data.last_updated}</p>
           </div>
         `;
@@ -115,19 +103,11 @@
           exDiv.className = 'exercise';
           let content = `<h2>${ex.name}</h2>`;
 
-          if (ex.machine_id || ex.adjustment) {
-            content += `<div class="sub-info">`;
-            if (ex.machine_id) content += `Machine ${ex.machine_id}`;
-            if (ex.machine_id && ex.adjustment) content += ` - `;
-            if (ex.adjustment) content += `${ex.adjustment}`;
-            content += `</div>`;
-          }
-
           if (Array.isArray(ex.sets)) {
             content += '<ul>';
             ex.sets.forEach(set => {
               content += `<li>${set.set ? 'Set ' + set.set + ': ' : ''}${set.reps} reps` +
-                         (set.max_reps ? ` (max ${set.max_reps})` : '') +
+                         (set.max_reps ? ` (${set.max_reps})` : '') +
                          ` x ${set.weight}</li>`;
             });
             content += '</ul>';
