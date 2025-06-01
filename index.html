@@ -24,14 +24,6 @@
       margin: auto;
     }
 
-    .sticky-title {
-      position: sticky;
-      top: 0;
-      background: inherit;
-      padding: 0.5rem 0;
-      z-index: 10;
-    }
-
     .exercise {
       background: white;
       border-radius: 12px;
@@ -47,7 +39,15 @@
     }
 
     .header {
-      margin-bottom: 1.5rem;
+      position: sticky;
+      top: 0;
+      background: #f9f9f9;
+      z-index: 1000;
+      padding-bottom: 0.5rem;
+    }
+
+    body.dark .header {
+      background: #121212;
     }
 
     select, .toggle-wrapper {
@@ -74,26 +74,11 @@
     body.dark .sub-info {
       color: #aaa;
     }
-
-    .rest-timer {
-      display: inline-block;
-      margin-left: 0.5rem;
-      padding: 0.2rem 0.4rem;
-      background: #eee;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-
-    body.dark .rest-timer {
-      background: #333;
-      color: #eee;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header sticky-title">
+    <div class="header">
       <label for="workout-select"><strong>Select Workout:</strong></label>
       <select id="workout-select">
         <option value="workout1.json">Workout 1</option>
@@ -104,7 +89,6 @@
         <input type="checkbox" id="dark-toggle" />
         <label for="dark-toggle">Dark Mode</label>
       </div>
-      <div id="workout-meta"></div>
     </div>
     <div id="workout"><p>Loading workout...</p></div>
   </div>
@@ -114,22 +98,32 @@
     const toggle = document.getElementById('dark-toggle');
 
     select.addEventListener('change', () => loadWorkout(select.value));
+
     toggle.addEventListener('change', () => {
       document.body.classList.toggle('dark', toggle.checked);
     });
 
-    function startTimer(seconds, display) {
-      let remaining = seconds;
-      display.textContent = `${remaining}s`;
-      const interval = setInterval(() => {
-        remaining--;
-        if (remaining <= 0) {
-          clearInterval(interval);
-          display.textContent = "Done";
-        } else {
-          display.textContent = `${remaining}s`;
-        }
-      }, 1000);
+    function createRestTimer(seconds) {
+      const container = document.createElement('span');
+      const button = document.createElement('button');
+      button.textContent = 'Start';
+      button.style.marginLeft = '1rem';
+      button.onclick = () => {
+        let timeLeft = seconds;
+        button.disabled = true;
+        button.textContent = `${timeLeft}s`;
+        const interval = setInterval(() => {
+          timeLeft--;
+          if (timeLeft > 0) {
+            button.textContent = `${timeLeft}s`;
+          } else {
+            button.textContent = 'Done';
+            clearInterval(interval);
+          }
+        }, 1000);
+      };
+      container.appendChild(button);
+      return container;
     }
 
     async function loadWorkout(file = 'workout2.json') {
@@ -139,12 +133,12 @@
 
         const data = await response.json();
         const container = document.getElementById('workout');
-        const meta = document.getElementById('workout-meta');
 
-        container.innerHTML = '';
-        meta.innerHTML = `
-          <h1>${data.workout_id}</h1>
-          <p>Last Updated: ${data.last_updated}</p>
+        container.innerHTML = `
+          <div class="header">
+            <h1>${data.workout_id}</h1>
+            <p>Last Updated: ${data.last_updated}</p>
+          </div>
         `;
 
         data.exercises.forEach(ex => {
@@ -173,14 +167,18 @@
           }
 
           if (ex.rest) {
-            const restSec = parseInt(ex.rest);
-            const restButton = restSec ? `<span class="rest-timer" onclick="startTimer(${restSec}, this)">Start ${restSec}s</span>` : '';
-            content += `<p><strong>Rest:</strong> ${ex.rest} ${restButton}</p>`;
+            content += `<p><strong>Rest:</strong> ${ex.rest}</p>`;
+            const secondsMatch = ex.rest.match(/(\d+)/);
+            if (secondsMatch) {
+              let seconds = parseInt(secondsMatch[1]);
+              if (ex.rest.includes('min')) seconds *= 60;
+              exDiv.appendChild(createRestTimer(seconds));
+            }
           }
 
           if (ex.notes) content += `<p><strong>Notes:</strong> ${ex.notes}</p>`;
 
-          exDiv.innerHTML = content;
+          exDiv.innerHTML += content;
           container.appendChild(exDiv);
         });
 
