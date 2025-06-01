@@ -71,6 +71,33 @@
       color: #aaa;
     }
 
+    .sticky-title {
+      position: sticky;
+      top: 0;
+      background-color: #f9f9f9;
+      padding: 0.5rem 0;
+      z-index: 10;
+    }
+
+    body.dark .sticky-title {
+      background-color: #121212;
+    }
+
+    .rest-button {
+      margin-left: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .rest-button:disabled {
+      background-color: #aaa;
+      cursor: default;
+    }
+
     @media (max-width: 600px) {
       .header {
         flex-direction: column;
@@ -119,6 +146,46 @@
       document.body.classList.toggle('dark', toggle.checked);
     });
 
+    function playTone() {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(1200, ctx.currentTime);
+      gainNode.gain.setValueAtTime(0.4, ctx.currentTime);
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      oscillator.start();
+      oscillator.stop(ctx.currentTime + 1);
+    }
+
+    function createRestButton(duration) {
+      const button = document.createElement('button');
+      button.className = 'rest-button';
+      button.textContent = `Start ${duration}`;
+
+      button.addEventListener('click', () => {
+        let seconds = parseInt(duration);
+        if (isNaN(seconds)) return;
+
+        button.disabled = true;
+        const originalText = button.textContent;
+
+        const interval = setInterval(() => {
+          if (seconds <= 0) {
+            clearInterval(interval);
+            button.textContent = originalText;
+            button.disabled = false;
+            playTone();
+          } else {
+            button.textContent = `Rest: ${seconds--}s`;
+          }
+        }, 1000);
+      });
+
+      return button;
+    }
+
     async function loadWorkout(file = 'workout2.json') {
       try {
         const response = await fetch(file);
@@ -128,7 +195,7 @@
         const container = document.getElementById('workout');
 
         container.innerHTML = `
-          <div class="header">
+          <div class="sticky-title">
             <h1>${data.workout_id}</h1>
             <p>Last Updated: ${data.last_updated}</p>
           </div>
@@ -159,7 +226,15 @@
             content += `<p>${ex.sets} sets x ${ex.reps} x ${ex.weight}</p>`;
           }
 
-          if (ex.rest) content += `<p><strong>Rest:</strong> ${ex.rest}</p>`;
+          if (ex.rest) {
+            const restParts = ex.rest.match(/(\d+)/);
+            content += `<p><strong>Rest:</strong> ${ex.rest}</p>`;
+            if (restParts) {
+              const btn = createRestButton(restParts[1]);
+              exDiv.appendChild(btn);
+            }
+          }
+
           if (ex.notes) content += `<p><strong>Notes:</strong> ${ex.notes}</p>`;
 
           exDiv.innerHTML = content;
