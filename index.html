@@ -39,11 +39,12 @@
     }
 
     .header {
+      margin-bottom: 1.5rem;
       position: sticky;
       top: 0;
       background: #f9f9f9;
-      z-index: 1000;
-      padding-bottom: 0.5rem;
+      padding: 1rem 0;
+      z-index: 10;
     }
 
     body.dark .header {
@@ -74,6 +75,12 @@
     body.dark .sub-info {
       color: #aaa;
     }
+
+    .rest-timer-button {
+      margin-left: 0.5rem;
+      padding: 2px 6px;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -103,27 +110,36 @@
       document.body.classList.toggle('dark', toggle.checked);
     });
 
-    function createRestTimer(seconds) {
-      const container = document.createElement('span');
-      const button = document.createElement('button');
-      button.textContent = 'Start';
-      button.style.marginLeft = '1rem';
-      button.onclick = () => {
+    function createTimerButton(seconds, parent) {
+      const btn = document.createElement('button');
+      btn.textContent = 'Start';
+      btn.className = 'rest-timer-button';
+      btn.onclick = () => {
         let timeLeft = seconds;
-        button.disabled = true;
-        button.textContent = `${timeLeft}s`;
+        btn.disabled = true;
         const interval = setInterval(() => {
-          timeLeft--;
-          if (timeLeft > 0) {
-            button.textContent = `${timeLeft}s`;
-          } else {
-            button.textContent = 'Done';
+          if (timeLeft <= 0) {
             clearInterval(interval);
+            btn.textContent = 'Done';
+            setTimeout(() => {
+              btn.textContent = 'Start';
+              btn.disabled = false;
+            }, 2000);
+          } else {
+            btn.textContent = `${timeLeft--}s`;
           }
         }, 1000);
       };
-      container.appendChild(button);
-      return container;
+      parent.appendChild(btn);
+    }
+
+    function parseRestSeconds(restText) {
+      if (!restText) return null;
+      const match = restText.match(/(\d+)(\s*)(sec|second|s)/i);
+      if (match) return parseInt(match[1]);
+      const minMatch = restText.match(/(\d+)(\s*)(min|minute|m)/i);
+      if (minMatch) return parseInt(minMatch[1]) * 60;
+      return null;
     }
 
     async function loadWorkout(file = 'workout2.json') {
@@ -167,18 +183,22 @@
           }
 
           if (ex.rest) {
-            content += `<p><strong>Rest:</strong> ${ex.rest}</p>`;
-            const secondsMatch = ex.rest.match(/(\d+)/);
-            if (secondsMatch) {
-              let seconds = parseInt(secondsMatch[1]);
-              if (ex.rest.includes('min')) seconds *= 60;
-              exDiv.appendChild(createRestTimer(seconds));
-            }
+            const restSeconds = parseRestSeconds(ex.rest);
+            const restHTML = document.createElement('p');
+            restHTML.innerHTML = `<strong>Rest:</strong> ${ex.rest}`;
+            if (restSeconds) createTimerButton(restSeconds, restHTML);
+            exDiv.appendChild(document.createRange().createContextualFragment(content));
+            exDiv.appendChild(restHTML);
+          } else {
+            exDiv.innerHTML = content;
           }
 
-          if (ex.notes) content += `<p><strong>Notes:</strong> ${ex.notes}</p>`;
+          if (ex.notes) {
+            const note = document.createElement('p');
+            note.innerHTML = `<strong>Notes:</strong> ${ex.notes}`;
+            exDiv.appendChild(note);
+          }
 
-          exDiv.innerHTML += content;
           container.appendChild(exDiv);
         });
 
