@@ -1,0 +1,54 @@
+{
+  "workout_id": "preview",
+  "last_updated": "2025-06-02",
+  "exercises": [
+    {
+      "name": "Mark Z",
+      "raw": "Mark Z: Workout 2"
+    },
+    {
+      "name": "Update",
+      "raw": "Update :5-27-25"
+    },
+    {
+      "name": "Planks",
+      "raw": "Planks: 3 sets x 20 (60) sec x Bodyweight "
+    },
+    {
+      "name": "Seated Row",
+      "raw": "Seated Row: 1 set  x 15 reps x 75 lbs,  2 sets x 10-12 (15) x 87.5 : 30 sec rest ( toes on the tape and heels on the ground, knees slightly bent, lean back 20 degrees and squeeze between your shoulder blades when you pull back)"
+    },
+    {
+      "name": "#28",
+      "raw": "#28: Leg Press: adj#4 : 1 set   x (15) reps x 90 lbs , 2 sets x 10 (15) reps x 120 lbs : 1 min rest ( bring legs down to 90 degrees , when you push up come close but DON’T lock out knees… push through your heels)"
+    },
+    {
+      "name": "#10",
+      "raw": "#10: Seated Shoulder Press: adj#7: 1 set x 15 reps x 50 lbs, 2 sets  x 12-15 reps x 60 lbs, … 30 sec rest ( look back, push back)"
+    },
+    {
+      "name": "#4",
+      "raw": "#4:Leg Ext: asj#3/6: 3 sets x 12 (15) reps x 50 lbs: 45 sec rest"
+    },
+    {
+      "name": "#24",
+      "raw": "#24: Close Grip Lat Pull: adj#2: 2 sets  x 15 reps x 80 lbs, 2 sets x 15 lbs x 90 lbs 30 sec rest : ( sit straight up and pull the bar to your collarbone, keep abs   tight as you pull down)"
+    },
+    {
+      "name": "Bicycle abs",
+      "raw": "Bicycle abs: 3 sets x 20 (60) sec x Bodyweight "
+    },
+    {
+      "name": "#5",
+      "raw": "#5: Leg Curls: adj#5 : 3 sets  x 10 (12) reps x 30 lbs: 45 sec rest"
+    },
+    {
+      "name": "Standing Dumbbell Bicep I’s to T’s Curls",
+      "raw": "Standing Dumbbell Bicep I’s to T’s Curls: 3 sets x  (15) reps x 15 lbs : standing w/  feet shoulder width apart and knees slightly bent, turn palms up when you curl the weights up) "
+    },
+    {
+      "name": "Calf raises",
+      "raw": "Calf raises : 3 sets x 12 (15) reps x Bodyweight"
+    }
+  ]
+}
