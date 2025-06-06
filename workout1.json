@@ -1,16 +1,7 @@
 {
-  "workout_id": "preview",
-  "last_updated": "2025-06-06",
+  "workout_id": "Workout 1",
+  "last_updated": "6-3-25",
   "exercises": [
-    {
-      "raw": "Mark Z:  Workout #1",
-      "machine_id": 1,
-      "name": "Mark Z"
-    },
-    {
-      "raw": "6-3-25",
-      "name": "6-3-25"
-    },
     {
       "raw": "Cardio warmup:",
       "name": "Cardio warmup"
