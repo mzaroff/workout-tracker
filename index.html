@@ -40,24 +40,20 @@
 
     .header {
       margin-bottom: 1.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #fff;
       position: sticky;
       top: 0;
-      z-index: 10;
-      padding: 1rem;
+      z-index: 1000;
+      background-color: #f9f9f9;
+      padding-bottom: 0.5rem;
     }
 
     body.dark .header {
-      background-color: #1e1e1e;
+      background-color: #121212;
     }
 
     select, .toggle-wrapper {
       font-size: 1rem;
+      margin-bottom: 1rem;
       padding: 0.4rem;
       border-radius: 6px;
       border: 1px solid #ccc;
@@ -82,34 +78,17 @@
 
     .rest-button {
       margin-top: 0.5rem;
-      display: inline-block;
       padding: 0.3rem 0.6rem;
-      font-size: 0.9rem;
       background-color: #007bff;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    @media (max-width: 600px) {
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      select, .toggle-wrapper {
-        width: 100%;
-      }
-
-      .exercise {
-        padding: 1rem;
-      }
-
-      li {
-        font-size: 1rem;
-        line-height: 1.4;
-      }
+    .rest-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
     }
   </style>
 </head>
@@ -135,21 +114,66 @@
     const toggle = document.getElementById('dark-toggle');
 
     select.addEventListener('change', () => loadWorkout(select.value));
+
     toggle.addEventListener('change', () => {
       document.body.classList.toggle('dark', toggle.checked);
     });
 
-    function playChime() {
+    function playTone(wave = 'sine', freq = 1200, duration = 0.4) {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(1200, ctx.currentTime);
-      gainNode.gain.setValueAtTime(0.4, ctx.currentTime);
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
-      oscillator.start();
-      oscillator.stop(ctx.currentTime + 0.4);
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = wave;
+      osc.frequency.value = freq;
+      gain.gain.value = 0.5;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    }
+
+    function startRestTimer(duration, button) {
+      let timeLeft = duration;
+      button.disabled = true;
+      const originalText = button.textContent;
+      button.textContent = `${timeLeft}s`;
+
+      const interval = setInterval(() => {
+        timeLeft--;
+        button.textContent = `${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          button.textContent = originalText;
+          button.disabled = false;
+          playTone();
+        }
+      }, 1000);
+    }
+
+    function startSecondsTimer(exName) {
+      const input = document.getElementById(`secInput-${exName}`);
+      let duration = parseInt(input.value);
+      if (isNaN(duration)) return;
+
+      const button = input.nextElementSibling;
+      input.disabled = true;
+      button.disabled = true;
+      const originalText = button.textContent;
+      let timeLeft = duration;
+      button.textContent = `${timeLeft}s`;
+
+      const interval = setInterval(() => {
+        timeLeft--;
+        button.textContent = `${timeLeft}s`;
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          input.disabled = false;
+          button.disabled = false;
+          button.textContent = originalText;
+          playTone();
+        }
+      }, 1000);
     }
 
     async function loadWorkout(file = 'workout2.json') {
@@ -180,22 +204,35 @@
             content += `</div>`;
           }
 
+          const hasSeconds = Array.isArray(ex.sets) && ex.sets.some(s => s.seconds);
+
           if (Array.isArray(ex.sets)) {
             content += '<ul>';
             ex.sets.forEach(set => {
-              content += `<li>${set.set ? 'Set ' + set.set + ': ' : ''}${set.reps} reps` +
-                         (set.max_reps ? ` (max ${set.max_reps})` : '') +
-                         ` x ${set.weight}</li>`;
+              const value = set.reps || set.seconds || '?';
+              content += `<li>${set.set ? 'Set ' + set.set + ': ' : ''}${value} x ${set.weight}</li>`;
             });
             content += '</ul>';
           } else if (ex.sets && ex.reps && ex.weight) {
             content += `<p>${ex.sets} sets x ${ex.reps} x ${ex.weight}</p>`;
           }
 
+          if (hasSeconds) {
+            let defaultSec = 30;
+            const secVals = ex.sets.map(s => s.seconds).filter(Boolean).map(s => parseInt(s.toString().split('-')[0]));
+            if (secVals.length) defaultSec = secVals[0];
+            const inputId = `secInput-${ex.name}`;
+            content += `
+              <p><strong>Seconds Timer:</strong>
+                <input type="number" id="${inputId}" value="${defaultSec}" style="width: 60px;">
+                <button class="rest-button" onclick="startSecondsTimer('${ex.name}')">Start</button>
+              </p>
+            `;
+          }
+
           if (ex.rest) {
-            const restId = `rest-${Math.random().toString(36).substr(2, 9)}`;
-            content += `<p><strong>Rest:</strong> ${ex.rest} <button class="rest-button" onclick="startRestTimer('${restId}', '${ex.rest}')">Start</button></p>`;
-            content += `<p id="${restId}" class="sub-info"></p>`;
+            content += `<p><strong>Rest:</strong> ${ex.rest} ` +
+                       `<button class="rest-button" onclick="startRestTimer(${parseRestTime(ex.rest)}, this)">Start</button></p>`;
           }
 
           if (ex.notes) content += `<p><strong>Notes:</strong> ${ex.notes}</p>`;
@@ -210,23 +247,9 @@
       }
     }
 
-    function startRestTimer(id, timeStr) {
-      const output = document.getElementById(id);
-      const minutes = parseFloat(timeStr);
-      const seconds = isNaN(minutes) ? 60 : Math.round(minutes * (timeStr.includes('min') ? 60 : 1));
-      let remaining = seconds;
-      output.textContent = `Rest timer: ${remaining} seconds`; // initial output
-
-      const interval = setInterval(() => {
-        remaining--;
-        if (remaining <= 0) {
-          clearInterval(interval);
-          output.textContent = 'Rest complete!';
-          playChime();
-        } else {
-          output.textContent = `Rest timer: ${remaining} seconds`;
-        }
-      }, 1000);
+    function parseRestTime(rest) {
+      const match = rest.match(/(\d+)/);
+      return match ? parseInt(match[1], 10) : 60;
     }
 
     window.onload = () => loadWorkout();
