@@ -200,7 +200,7 @@
             content += `<div class="sub-info">`;
             if (ex.machine_id) content += `Machine ${ex.machine_id}`;
             if (ex.machine_id && ex.adjustment) content += ` - `;
-            if (ex.adjustment) content += `${ex.adjustment}`;
+            if (ex.adjustment) content += `Adjustment ${Array.isArray(ex.adjustment) ? ex.adjustment.join(" / ") : ex.adjustment}`;
             content += `</div>`;
           }
 
@@ -209,8 +209,9 @@
           if (Array.isArray(ex.sets)) {
             content += '<ul>';
             ex.sets.forEach(set => {
-              const value = set.reps || set.seconds || '?';
-              content += `<li>${set.set ? 'Set ' + set.set + ': ' : ''}${value} x ${set.weight}</li>`;
+              const unit = set.seconds ? 'seconds' : 'reps';
+              const value = set[unit] || '?';
+              content += `<li>${set.set ? 'Set ' + set.set + ': ' : ''}${value} ${unit} x ${set.weight}</li>`;
             });
             content += '</ul>';
           } else if (ex.sets && ex.reps && ex.weight) {
