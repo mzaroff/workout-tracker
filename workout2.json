@@ -1,7 +1,11 @@
 {
   "workout_id": "Workout 2",
-  "last_updated": "5-27-25",
+  "last_updated": "2025-06-09",
   "exercises": [
+    {
+      "raw": "Update :5-27-25",
+      "name": "Update"
+    },
     {
       "raw": "Planks: 3 sets x 20 (60) sec x Bodyweight",
       "name": "Planks",
@@ -101,8 +105,12 @@
       ]
     },
     {
-      "raw": "#4:Leg Ext: asj#3/6: 3 sets x 12 (15) reps x 50 lbs: 45 sec rest",
+      "raw": "#4:Leg Ext: adj#3/6: 3 sets x 12 (15) reps x 50 lbs: 45 sec rest",
       "machine_id": 4,
+      "adjustment": [
+        "3",
+        "6"
+      ],
       "name": "Leg Ext",
       "rest": "45 sec",
       "sets": [
@@ -124,7 +132,7 @@
       ]
     },
     {
-      "raw": "#24: Close Grip Lat Pull: adj#2: 2 sets  x 15 reps x 80 lbs, 2 sets x 15 lbs x 90 lbs 30 sec rest : ( sit straight up and pull the bar to your collarbone, keep abs   tight as you pull down)",
+      "raw": "#24: Close Grip Lat Pull: adj#2: 2 sets  x 15 reps x 80 lbs, 2 sets x 15 reps x 90 lbs 30 sec rest : ( sit straight up and pull the bar to your collarbone, keep abs   tight as you pull down)",
       "machine_id": 24,
       "adjustment": [
         "2"
@@ -142,6 +150,16 @@
           "set": 2,
           "reps": "15",
           "weight": "80 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "90 lbs"
+        },
+        {
+          "set": 4,
+          "reps": "15",
+          "weight": "90 lbs"
         }
       ]
     },
