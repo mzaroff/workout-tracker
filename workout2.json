@@ -51,13 +51,13 @@
       ]
     },
     {
-      "raw": "#28: Leg Press: adj#4 : 1 set   x (15) reps x 90 lbs , 2 sets x 10 (15) reps x 120 lbs : 1 min rest ( bring legs down to 90 degrees , when you push up come close but DON’T lock out knees… push through your heels)",
+      "raw": "#28: Leg Press: adj#4 : 1 set   x (15) reps x 90 lbs , 2 sets x 10 (15) reps x 120 lbs : 60 sec rest ( bring legs down to 90 degrees , when you push up come close but DON’T lock out knees… push through your heels)",
       "machine_id": 28,
       "adjustment": [
         "4"
       ],
       "name": "Leg Press",
-      "rest": "1 min",
+      "rest": "60 sec",
       "notes": "bring legs down to 90 degrees , when you push up come close but DON’T lock out knees… push through your heels",
       "sets": [
         {
