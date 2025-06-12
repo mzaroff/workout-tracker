@@ -77,28 +77,28 @@
     }
 
     .rest-button {
-  margin-top: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+      margin-top: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
     .rest-button:disabled {
       background-color: #ccc;
       cursor: not-allowed;
     }
-  
-.rest-button.countdown {
-  background-color: #222;
-  color: #fff;
-}
 
-</style>
+    .rest-button.countdown {
+      background-color: #222;
+      color: #fff;
+    }
+
+  </style>
 </head>
 <body>
   <div class="container">
@@ -260,9 +260,28 @@
       }
     }
 
+    // Improved rest time parser: supports "1 min", "90 sec", "1:30", or plain numbers (seconds)
     function parseRestTime(rest) {
-      const match = rest.match(/(\d+)/);
-      return match ? parseInt(match[1], 10) : 60;
+      rest = rest.toString().trim().toLowerCase();
+
+      // mm:ss format (e.g., "1:30")
+      let m = rest.match(/^(\d+):(\d{1,2})$/);
+      if (m) return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+
+      // minutes (e.g., "1 min", "2.5 minutes")
+      m = rest.match(/([\d.]+)\s*mi?n/);
+      if (m) return Math.round(parseFloat(m[1]) * 60);
+
+      // seconds (e.g., "45 sec", "30 seconds")
+      m = rest.match(/([\d.]+)\s*sec/);
+      if (m) return Math.round(parseFloat(m[1]));
+
+      // plain number (assume seconds)
+      m = rest.match(/^[\d.]+$/);
+      if (m) return Math.round(parseFloat(m[0]));
+
+      // fallback value
+      return 60;
     }
 
     window.onload = () => loadWorkout();
