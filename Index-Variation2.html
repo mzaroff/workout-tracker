@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Workout Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    body.dark {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .exercise {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    body.dark .exercise {
+      background: #1e1e1e;
+      color: #e0e0e0;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .header {
+      margin-bottom: 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: #f9f9f9;
+      padding-bottom: 0.5rem;
+    }
+
+    body.dark .header {
+      background-color: #121212;
+    }
+
+    select, .toggle-wrapper {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      padding: 0.4rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .toggle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sub-info {
+      margin-top: 0.25rem;
+      margin-left: 1rem;
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    body.dark .sub-info {
+      color: #aaa;
+    }
+
+    .rest-button {
+      margin-top: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .rest-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .rest-button.countdown {
+      background-color: #222;
+      color: #fff;
+    }
+
+    .variation-label {
+      font-weight: bold;
+      color: #17a2b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <label for="workout-select"><strong>Select Workout:</strong></label>
+      <select id="workout-select">
+        <option value="workout1.json">Workout 1</option>
+        <option value="workout2.json" selected>Workout 2</option>
+      </select>
+
+      <div class="toggle-wrapper">
+        <input type="checkbox" id="dark-toggle" />
+        <label for="dark-toggle">Dark Mode</label>
+      </div>
+    </div>
+    <div id="workout"><p>Loading workout...</p></div>
+  </div>
+
+  <script>
+    const select = document.getElementById('workout-select');
+    const toggle = document.getElementById('dark-toggle');
+
+    select.addEventListener('change', () => loadWorkout(select.value));
+
+    toggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark', toggle.checked);
+    });
+
+    function playTone(wave = 'sine', freq = 1200, duration = 0.4) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = wave;
+      osc.frequency.value = freq;
+      gain.gain.value = 0.5;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    }
+
+    function startRestTimer(duration, button) {
+      let timeLeft = duration;
+      button.disabled = true;
+      const originalText = button.textContent;
+      button.textContent = `${timeLeft}s`;
+      button.classList.add('countdown');
+
+      const interval = setInterval(() => {
+        timeLeft--;
+        button.textContent = `${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          button.textContent = originalText;
+          button.disabled = false;
+          button.classList.remove('countdown');
+          playTone();
+        }
+      }, 1000);
+    }
+
+    function startSecondsTimer(exName) {
+      const input = document.getElementById(`secInput-${exName}`);
+      let duration = parseInt(input.value);
+      if (isNaN(duration)) return;
+
+      const button = input.nextElementSibling;
+      input.disabled = true;
+      button.disabled = true;
+      const originalText = button.textContent;
+      let timeLeft = duration;
+      button.textContent = `${timeLeft}s`;
+
+      const interval = setInterval(() => {
+        timeLeft--;
+        button.textContent = `${timeLeft}s`;
+        button.classList.add('countdown');
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          input.disabled = false;
+          button.disabled = false;
+          button.textContent = originalText;
+          button.classList.remove('countdown');
+          playTone();
+        }
+      }, 1000);
+    }
+
+    async function loadWorkout(file = 'workout2.json') {
+      try {
+        const response = await fetch(file);
+        if (!response.ok) throw new Error("Workout file not found.");
+
+        const data = await response.json();
+        const container = document.getElementById('workout');
+
+        container.innerHTML = `
+          <div class="header">
+            <h1>${data.workout_id}</h1>
+            <p>Last Updated: ${data.last_updated}</p>
+          </div>
+        `;
+
+        data.exercises.forEach(ex => {
+          const exDiv = document.createElement('div');
+          exDiv.className = 'exercise';
+          let content = `<h2>${ex.name}</h2>`;
+
+          if (ex.machine_id || ex.adjustment) {
+            content += `<div class="sub-info">`;
+            if (ex.machine_id) content += `Machine ${ex.machine_id}`;
+            if (ex.machine_id && ex.adjustment) content += ` - `;
+            if (ex.adjustment) content += `Adjustment ${Array.isArray(ex.adjustment) ? ex.adjustment.join(" / ") : ex.adjustment}`;
+            content += `</div>`;
+          }
+
+          const hasSeconds = Array.isArray(ex.sets) && ex.sets.some(s => s.seconds);
+
+          if (Array.isArray(ex.sets)) {
+            content += '<ul>';
+            ex.sets.forEach(set => {
+              const unit = set.seconds ? 'seconds' : 'reps';
+              const value = set[unit] || '?';
+              const variation = set.variation ? `<span class="variation-label">${set.variation}:</span> ` : '';
+              content += `<li>${variation}${set.set ? 'Set ' + set.set + ': ' : ''}${value} ${unit} x ${set.weight || ''}</li>`;
+            });
+            content += '</ul>';
+          } else if (ex.sets && ex.reps && ex.weight) {
+            content += `<p>${ex.sets} sets x ${ex.reps} x ${ex.weight}</p>`;
+          }
+
+          if (hasSeconds) {
+            let defaultSec = 30;
+            const secVals = ex.sets.map(s => s.seconds).filter(Boolean).map(s => parseInt(s.toString().split('-')[0]));
+            if (secVals.length) defaultSec = secVals[0];
+            const inputId = `secInput-${ex.name}`;
+            content += `
+              <p><strong>Seconds Timer:</strong>
+                <input type="number" id="${inputId}" value="${defaultSec}" style="width: 60px;">
+                <button class="rest-button" onclick="startSecondsTimer('${ex.name}')">Start</button>
+              </p>
+            `;
+          }
+
+          if (ex.rest) {
+            content += `<p><strong>Rest:</strong> ${ex.rest} ` +
+                       `<button class="rest-button" onclick="startRestTimer(${parseRestTime(ex.rest)}, this)">Start</button></p>`;
+          }
+
+          if (ex.notes) content += `<p><strong>Notes:</strong> ${ex.notes}</p>`;
+
+          exDiv.innerHTML = content;
+          container.appendChild(exDiv);
+        });
+
+        setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 50);
+      } catch (error) {
+        document.getElementById('workout').innerHTML = `<p style="color: red;">Error loading workout: ${error.message}</p>`;
+      }
+    }
+
+    function parseRestTime(rest) {
+      rest = rest.toString().trim().toLowerCase();
+
+      let m = rest.match(/^(\d+):(\d{1,2})$/);
+      if (m) return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+
+      m = rest.match(/([\d.]+)\s*mi?n/);
+      if (m) return Math.round(parseFloat(m[1]) * 60);
+
+      m = rest.match(/([\d.]+)\s*sec/);
+      if (m) return Math.round(parseFloat(m[1]));
+
+      m = rest.match(/^[\d.]+$/);
+      if (m) return Math.round(parseFloat(m[0]));
+
+      return 60;
+    }
+
+    window.onload = () => loadWorkout();
+  </script>
+</body>
+</html>
+v
