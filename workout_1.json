@@ -1,0 +1,381 @@
+{
+  "workout_id": "Workout 1",
+  "last_updated": "7-31-25",
+  "exercises": [
+    {
+      "raw": "Cardio warmup:",
+      "name": "Cardio warmup"
+    },
+    {
+      "raw": "Planks : 3 sets x 45 (60) sec x Bodyweight",
+      "name": "Planks",
+      "sets": [
+        {
+          "set": 1,
+          "seconds": "45-60",
+          "weight": "Bodyweight"
+        },
+        {
+          "set": 2,
+          "seconds": "45-60",
+          "weight": "Bodyweight"
+        },
+        {
+          "set": 3,
+          "seconds": "45-60",
+          "weight": "Bodyweight"
+        }
+      ]
+    },
+    {
+      "raw": "#26: Chest Press: adj# 1 : 1 set x 15 reps x 80 lbs 1 set x  15 reps x 90 lbs, 1 sets x 15 reps x 100 lbs,  1 set x 15 reps x 110  lbs ( use top handle, breathe out when you push out, keep abs tight and you push…Bellybutton to the Spine)…1 min rest",
+      "machine_id": 26,
+      "adjustment": [
+        "1"
+      ],
+      "name": "Chest Press",
+      "rest": "1 min",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "80 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "15",
+          "weight": "90 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "100 lbs"
+        },
+        {
+          "set": 4,
+          "reps": "15",
+          "weight": "110  lbs"
+        }
+      ]
+    },
+    {
+      "raw": "Or",
+      "name": "Or"
+    },
+    {
+      "name": "Flat Bench Press / Jackknife abs",
+      "raw": "Flat Bench Press: 1 set x 10 reps x 85 lbs , 1 set x 8 reps x 95 lbs, 1 set x 6 reps x 105 , 1 set x 4 (6) x 115 lbs …1 min rest + Jackknife abs: 3 sets x 15 (30) reps x bodyweight",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "10",
+          "weight": "85 lbs",
+          "variation": "Flat Bench Press",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 1,
+          "reps": "15-30",
+          "weight": "bodyweight",
+          "variation": "Jackknife abs",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 2,
+          "reps": "8",
+          "weight": "95 lbs",
+          "variation": "Flat Bench Press",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 2,
+          "reps": "15-30",
+          "weight": "bodyweight",
+          "variation": "Jackknife abs",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 3,
+          "reps": "4-6",
+          "weight": "115 lbs",
+          "variation": "Flat Bench Press",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 3,
+          "reps": "15-30",
+          "weight": "bodyweight",
+          "variation": "Jackknife abs",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        }
+      ],
+      "rest": "1 min"
+    },
+    {
+      "raw": "#24: Wide Lat Pull: adj #2: 1 set x 10 reps x 80 lbs, 1 set  x 15 reps x 90 lbs, 1 set x  15 x 100 lbs, 1 set x 6-8 (12) reps x 110 lbs.. (thumbs in the corner and over the top, lean back 20 degrees and pull down to your collarbone, squeeze between your shoulder blades)",
+      "machine_id": 24,
+      "name": "Wide Lat Pull",
+      "notes": "thumbs in the corner and over the top, lean back 20 degrees and pull down to your collarbone, squeeze between your shoulder blades",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "10",
+          "weight": "80 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "15",
+          "weight": "90 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "100 lbs"
+        },
+        {
+          "set": 4,
+          "reps": "6-8",
+          "weight": "110 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "Bicycle abs: 3 sets x 35  (60) x Bodyweight ( tuck hands underneath chin, raise shoulder blades, keep abs tight and pedal legs)",
+      "name": "Bicycle abs",
+      "notes": "tuck hands underneath chin, raise shoulder blades, keep abs tight and pedal legs",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "35-60",
+          "weight": "Bodyweight"
+        },
+        {
+          "set": 2,
+          "reps": "35-60",
+          "weight": "Bodyweight"
+        },
+        {
+          "set": 3,
+          "reps": "35-60",
+          "weight": "Bodyweight"
+        }
+      ]
+    },
+    {
+      "raw": "#28: Leg Press: adj#4 : 1 set x (15) reps x 90 lbs, 2 sets x 10 (15) x 120lbs,  ( bring legs down to 90 degrees , when you push up come close but DON’T lock out knees… push through your heels)   1 min rest",
+      "machine_id": 28,
+      "adjustment": [
+        "4"
+      ],
+      "name": "Leg Press",
+      "rest": "1 min",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "90 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "10-15",
+          "weight": "120lbs"
+        },
+        {
+          "set": 3,
+          "reps": "10-15",
+          "weight": "120lbs"
+        }
+      ]
+    },
+    {
+      "raw": "#9: Incline Chest Press: adj# 2/7:  1 set x (15) reps x 50 lbs, 1 set x 12 (15) reps x 60 lbs, 1 set x 10-12 (15) x 70 lbs  1 min rest",
+      "machine_id": 9,
+      "adjustment": [
+        "2",
+        "7"
+      ],
+      "name": "Incline Chest Press",
+      "rest": "1 min",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "50 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "12-15",
+          "weight": "60 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "10-12",
+          "weight": "70 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "Or",
+      "name": "Or"
+    },
+    {
+      "raw": "Dumbbell Incline Chest Press: adj#7/3: 1 set x 15 reps x 20 lbs, 1 set x 15 reps x 25 lbs , 1 set  x 10-12 (15) reps x 30 lbs ….45 sec rest",
+      "machine_id": 7,
+      "adjustment": [
+        "7",
+        "3"
+      ],
+      "name": "Dumbbell Incline Chest Press",
+      "rest": "45 sec",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "20 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "15",
+          "weight": "25 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "10-12",
+          "weight": "30 lbs"
+        }
+      ]
+    },
+    {
+      "name": "Seated Bicep Hammer Curls / decline Ab twist",
+      "raw": "Seated Bicep Hammer Curls: 3 sets x 15 reps x 20 lbs 30 sec rest + #34: decline Ab twist: adj#4: 3 sets x  25 (60) reps x 8 lb med ball ( lean back with chest out, keep eye contact in the mirror and twist torso, keep abs tight when you breathe out)",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "20 lbs",
+          "variation": "Seated Bicep Hammer Curls",
+          "superset": true,
+          "superset_pair_id": "superset2"
+        },
+        {
+          "set": 1,
+          "reps": "25-60",
+          "weight": "8 lb med ball",
+          "variation": "decline Ab twist",
+          "superset": true,
+          "superset_pair_id": "superset2"
+        },
+        {
+          "set": 2,
+          "reps": "15",
+          "weight": "20 lbs",
+          "variation": "Seated Bicep Hammer Curls",
+          "superset": true,
+          "superset_pair_id": "superset2"
+        },
+        {
+          "set": 2,
+          "reps": "25-60",
+          "weight": "8 lb med ball",
+          "variation": "decline Ab twist",
+          "superset": true,
+          "superset_pair_id": "superset2"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "20 lbs",
+          "variation": "Seated Bicep Hammer Curls",
+          "superset": true,
+          "superset_pair_id": "superset2"
+        },
+        {
+          "set": 3,
+          "reps": "25-60",
+          "weight": "8 lb med ball",
+          "variation": "decline Ab twist",
+          "superset": true,
+          "superset_pair_id": "superset2"
+        }
+      ],
+      "rest": "30 sec",
+      "notes": "lean back with chest out, keep eye contact in the mirror and twist torso, keep abs tight when you breathe out"
+    },
+    {
+      "raw": "#20: Pec-Fly: adj #8: 1 set x 20 reps x 50 lbs , 1 set  x  (20) reps x 60 lbs , 1 set x 15 x 70 lbs … 1 min rest ( think outside chest to inside of chest )",
+      "machine_id": 20,
+      "name": "Pec-Fly",
+      "rest": "1 min",
+      "notes": "think outside chest to inside of chest",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "20",
+          "weight": "50 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "20",
+          "weight": "60 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "70 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "Functional:  Straight bar rotation: 3 sets x 8 (12) reps x 45 lbs … 45 sec rest",
+      "name": "Functional",
+      "rest": "45 sec",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "8-12",
+          "weight": "45 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "8-12",
+          "weight": "45 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "8-12",
+          "weight": "45 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "#13: Tricep Pushdowns/ Pulldowns: 3 sets x 15  Reps x 60 lbs …1 min rest( palms down, thumbs on top, feet shoulder width apart, knees slightly bent, pushdown and roll knuckles to your  thighs)",
+      "machine_id": 13,
+      "name": "Tricep Pushdowns/ Pulldowns",
+      "rest": "1 min",
+      "notes": "palms down, thumbs on top, feet shoulder width apart, knees slightly bent, pushdown and roll knuckles to your  thighs",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "60 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "15",
+          "weight": "60 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "60 lbs"
+        }
+      ]
+    }
+  ]
+}
