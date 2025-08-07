@@ -1,0 +1,373 @@
+{
+  "workout_id": "Workout 2",
+  "last_updated": "8-5-25",
+  "exercises": [
+    {
+      "raw": "Planks: 3 sets x 45 (60) sec x Bodyweight",
+      "name": "Planks",
+      "sets": [
+        {
+          "set": 1,
+          "seconds": "45-60",
+          "weight": "Bodyweight"
+        },
+        {
+          "set": 2,
+          "seconds": "45-60",
+          "weight": "Bodyweight"
+        },
+        {
+          "set": 3,
+          "seconds": "45-60",
+          "weight": "Bodyweight"
+        }
+      ]
+    },
+    {
+      "raw": "Seated Row: 1 set  x 15 reps x 75 lbs,  2 sets x 15 x 87.5 lbs : 30 sec rest ( toes on the tape and heels on the ground, knees slightly bent, lean back 20 degrees and squeeze between your shoulder blades when you pull back)",
+      "name": "Seated Row",
+      "rest": "30 sec",
+      "notes": "toes on the tape and heels on the ground, knees slightly bent, lean back 20 degrees and squeeze between your shoulder blades when you pull back",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "75 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "15",
+          "weight": "87.5 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "87.5 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "#28: Leg Press: adj#4 : 1 set   x (15) reps x 90 lbs , 1 sets x (15) reps x 120 lbs, 1 sets x 10 (15) reps x 130 lbs: 1 min rest ( bring legs down to 90 degrees , when you push up come close but DON’T lock out knees… push through your heels)",
+      "machine_id": 28,
+      "adjustment": [
+        "4"
+      ],
+      "name": "Leg Press",
+      "rest": "1 min",
+      "notes": "bring legs down to 90 degrees , when you push up come close but DON’T lock out knees… push through your heels",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "90 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "15",
+          "weight": "120 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "10-15",
+          "weight": "130 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "#10: Seated Shoulder Press: adj#7: 1 set x 15 reps x 50 lbs, 2 sets x 12-15 reps x 70 lbs … 30 sec rest ( look back, push back)",
+      "machine_id": 10,
+      "adjustment": [
+        "7"
+      ],
+      "name": "Seated Shoulder Press",
+      "rest": "30 sec",
+      "notes": "look back, push back",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "50 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "12-15",
+          "weight": "70 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "12-15",
+          "weight": "70 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "Or",
+      "name": "Or"
+    },
+    {
+      "raw": "Seated Dumbbell Shoulder Press: 3 sets x 10 (15) reps x 10 lbs … 30 sec rest",
+      "name": "Seated Dumbbell Shoulder Press",
+      "rest": "30 sec",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "10-15",
+          "weight": "10 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "10-15",
+          "weight": "10 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "10-15",
+          "weight": "10 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "Woodchopper abs: abs: 3 sets x (20) reps x 40 lbs..30 sec rest",
+      "name": "Woodchopper abs",
+      "rest": "30 sec",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "20",
+          "weight": "40 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "20",
+          "weight": "40 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "20",
+          "weight": "40 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "#4:Leg Ext: asj#2/6: 3 sets x 12 (15) reps x 60 lbs…..45 sec rest",
+      "machine_id": 4,
+      "name": "Leg Ext",
+      "rest": "45 sec",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "12-15",
+          "weight": "60 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "12-15",
+          "weight": "60 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "12-15",
+          "weight": "60 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "Or",
+      "name": "Or"
+    },
+    {
+      "raw": "#4: Leg Ext: adj# 2/6: Var straights/ ins/ outs: straights: 1 set x 15 reps x50 lbs , Ins: 1 set x 10-12-15 reps x 40 lbs, outs: 1 set x 10-12-15 reps x 40 lbs, straights: 1 set x 15 reps x 40 lbs..1 mins rest",
+      "machine_id": 4,
+      "adjustment": [
+        "2",
+        "6"
+      ],
+      "name": "Leg Ext",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "variation": "straights",
+          "weight": "50 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "10-12-15",
+          "variation": "Ins",
+          "weight": "40 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "10-12-15",
+          "variation": "outs",
+          "weight": "40 lbs"
+        },
+        {
+          "set": 4,
+          "reps": "15",
+          "variation": "straights",
+          "weight": "40 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "#24: Close Grip Lat Pull: adj#2: 2 sets  x 15 reps x 80 lbs, 1 set  x 15 reps x 90 lbs, 1 set x 12 (15) x 100 lbs …30 sec rest : ( sit straight up and pull the bar to your collarbone, keep abs   tight as you pull down)",
+      "machine_id": 24,
+      "adjustment": [
+        "2"
+      ],
+      "name": "Close Grip Lat Pull",
+      "rest": "30 sec",
+      "notes": "sit straight up and pull the bar to your collarbone, keep abs   tight as you pull down",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "80 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "15",
+          "weight": "80 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "15",
+          "weight": "90 lbs"
+        },
+        {
+          "set": 4,
+          "reps": "12-15",
+          "weight": "100 lbs"
+        }
+      ]
+    },
+    {
+      "raw": "#5: Leg Curls: adj#5 : 3 sets  x 11 (12) reps x 30 lbs: 45 sec rest",
+      "machine_id": 5,
+      "adjustment": [
+        "5"
+      ],
+      "name": "Leg Curls",
+      "rest": "45 sec",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "11-12",
+          "weight": "30 lbs"
+        },
+        {
+          "set": 2,
+          "reps": "11-12",
+          "weight": "30 lbs"
+        },
+        {
+          "set": 3,
+          "reps": "11-12",
+          "weight": "30 lbs"
+        }
+      ]
+    },
+    {
+      "name": "Standing Dumbbell Bicep I’s to T’s Curls / Jackknife abs",
+      "raw": "Standing Dumbbell Bicep I’s to T’s Curls:  1 set x  (15) reps x 15 lbs , 2 set x 12 (15) reps x 20 lbs: 30 sec rest: standing w/  feet shoulder width apart and knees slightly bent, turn palms up when you curl the weights up) + Jackknife abs: 3 sets x 15 (30) reps x Bodyweight",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "15",
+          "weight": "15 lbs",
+          "variation": "Standing Dumbbell Bicep I’s to T’s Curls",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 1,
+          "reps": "15-30",
+          "weight": "Bodyweight",
+          "variation": "Jackknife abs",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 2,
+          "reps": "12-15",
+          "weight": "20 lbs",
+          "variation": "Standing Dumbbell Bicep I’s to T’s Curls",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 2,
+          "reps": "15-30",
+          "weight": "Bodyweight",
+          "variation": "Jackknife abs",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 3,
+          "reps": "12-15",
+          "weight": "20 lbs",
+          "variation": "Standing Dumbbell Bicep I’s to T’s Curls",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        },
+        {
+          "set": 3,
+          "reps": "15-30",
+          "weight": "Bodyweight",
+          "variation": "Jackknife abs",
+          "superset": true,
+          "superset_pair_id": "superset1"
+        }
+      ],
+      "rest": "30 sec"
+    },
+    {
+      "raw": "Calf raises : 3 sets x 12 (15) reps x Bodyweight",
+      "name": "Calf raises",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "12-15",
+          "weight": "Bodyweight"
+        },
+        {
+          "set": 2,
+          "reps": "12-15",
+          "weight": "Bodyweight"
+        },
+        {
+          "set": 3,
+          "reps": "12-15",
+          "weight": "Bodyweight"
+        }
+      ]
+    },
+    {
+      "raw": "Or",
+      "name": "Or"
+    },
+    {
+      "raw": "Calf raises: Var straight/in/out: Straight:1 set x 10-15 reps x Bodyweight, In:1 set x 10-15 reps x Bodyweight, Out:1 set x 10-15 reps x Bodyweight",
+      "name": "Calf raises",
+      "sets": [
+        {
+          "set": 1,
+          "reps": "10-15",
+          "variation": "Straight"
+        },
+        {
+          "set": 2,
+          "reps": "10-15",
+          "variation": "In"
+        },
+        {
+          "set": 3,
+          "reps": "10-15",
+          "variation": "Out"
+        }
+      ]
+    }
+  ]
+}
